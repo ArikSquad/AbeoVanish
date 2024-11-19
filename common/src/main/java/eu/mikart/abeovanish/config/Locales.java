@@ -85,7 +85,7 @@ public class Locales {
      */
     @NotNull
     public Component format(@NotNull String text) {
-        return MiniMessage.miniMessage().deserialize(text, Placeholder.component("prefix", MiniMessage.miniMessage().deserialize(getRawLocale("prefix").orElse("[<gradient:#77DD77:#AFEEEE>AnimVanish</gradient>]"))));
+        return MiniMessage.miniMessage().deserialize(text, Placeholder.component("prefix", MiniMessage.miniMessage().deserialize(getRawLocale("prefix").orElse("[<gradient:#77DD77:#AFEEEE>AbeoVanish</gradient>]"))));
     }
 
     /**

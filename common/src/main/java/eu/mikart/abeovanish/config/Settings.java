@@ -9,7 +9,7 @@ import lombok.Getter;
 @SuppressWarnings("FieldMayBeFinal")
 public class Settings {
 
-	protected static final String CONFIG_HEADER = """
+    protected static final String CONFIG_HEADER = """
             ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
             ┃       AbeoVanish Config      ┃
             ┃    Developed by ArikSquad    ┃
@@ -18,13 +18,16 @@ public class Settings {
             ┣╸ Config Help: link here
             ┗╸ Documentation: link here""";
 
-	@Comment("Locale of the default language file to use. Docs: ")
-	private String language = Locales.DEFAULT_LOCALE;
+    @Comment("Locale of the default language file to use. Docs: ")
+    private String language = Locales.DEFAULT_LOCALE;
 
-	@Comment("Whether to enable debug mode. This will print additional information to the console.")
-	private boolean debug = false;
+    @Comment("Whether to enable debug mode. This will print additional information to the console.")
+    private boolean debug = false;
 
-	@Comment("Whether to enable the plugin's update checker.")
-	private boolean updateChecker = true;
+    @Comment("Whether to enable the plugin's update checker.")
+    private boolean updateChecker = true;
+
+    @Comment("Whether to send join/quit messages on vanish")
+    private boolean sendJoinQuitMessages = true;
 
 }
