@@ -1,0 +1,6 @@
+name: abeovanish
+version: '1.0-SNAPSHOT'
+main: eu.mikart.abeovanish.AbeoBukkit
+api-version: '1.21'
+authors: [ArikSquad]
+description: Modular vanish-system
