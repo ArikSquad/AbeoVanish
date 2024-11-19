@@ -1,0 +1,19 @@
+name: abeovanish
+version: '1.0-SNAPSHOT'
+main: eu.mikart.abeovanish.AbeoBukkit
+api-version: '1.21'
+authors: [ArikSquad]
+description: Modular vanish-system
+dependencies:
+  server:
+    CommandAPI:
+      load: BEFORE
+      required: true
+      join-classpath: true
+permissions:
+  vanish.use:
+    default: true
+    description: Allows the player to use the vanish command
+  vanish.see:
+    default: op
+    description: Allows the player to see vanished players

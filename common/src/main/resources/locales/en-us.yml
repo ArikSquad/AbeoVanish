@@ -1,2 +1,6 @@
 locales:
   prefix: "[<gradient:#77DD77:#AFEEEE>AbeoVanish</gradient>]"
+  fake_quit: "%1% has left the game"
+  fake_join: "%1% has joined the game"
+  vanish_on: "You are now vanished"
+  vanish_off: "You are no longer vanished"
