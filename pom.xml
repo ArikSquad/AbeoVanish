@@ -5,11 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.mikart</groupId>
-    <artifactId>AbeoVanish</artifactId>
-    <version>1.0.0</version>
+    <artifactId>abeovanish</artifactId>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
-
-    <name>AbeoVanish</name>
 
     <modules>
         <module>common</module>
@@ -22,17 +20,42 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <scm>
+        <connection>scm:git:git://github.com/ArikSquad/AbeoVanish.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/ArikSquad/AbeoVanish.git</developerConnection>
+        <url>https://github.com/ArikSquad/AbeoVanish</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <build>
+        <finalName>${project.artifactId}-${project.version}${finalNameSuffix}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.13.0</version>
                 <configuration>
                     <release>21</release>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <shortRevisionLength>5</shortRevisionLength>
+                    <revisionOnScmFailure>"UNKNOWN"</revisionOnScmFailure>
                 </configuration>
             </plugin>
         </plugins>
@@ -43,6 +66,33 @@
             </resource>
         </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.type>development</build.type>
+                <finalNameSuffix>-dev-${buildNumber}</finalNameSuffix>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <build.type>production</build.type>
+                <finalNameSuffix></finalNameSuffix>
+            </properties>
+        </profile>
+    </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>mikart-repository</id>
+            <url>https://maven.mikart.eu/snapshots</url>
+        </repository>
+    </distributionManagement>
 
     <repositories>
         <repository>

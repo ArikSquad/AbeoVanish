@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>eu.mikart</groupId>
-        <artifactId>AbeoVanish</artifactId>
-        <version>1.0.0</version>
+        <artifactId>abeovanish</artifactId>
+        <version>0.0.1</version>
     </parent>
 
     <groupId>eu.mikart.abeovanish</groupId>
     <artifactId>abeovanish-common</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

@@ -40,6 +40,12 @@ public class Settings {
     @Comment("Database settings")
     private DatabaseSettings database = new DatabaseSettings();
 
+    @Comment("Vanish settings")
+    private VanishSettings vanishSettings = new VanishSettings();
+    
+    @Comment("Functionality settings")
+    private FunctionalitySettings functionalitySettings = new FunctionalitySettings();
+
     @Getter
     @Configuration
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -88,6 +94,53 @@ public class Settings {
             return tableNames.getOrDefault(tableName.name().toLowerCase(Locale.ENGLISH), tableName.getDefaultName());
         }
 
+    }
+
+    @Getter
+    @Configuration
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class FunctionalitySettings {
+        @Comment("Whether to prefer the use of packets for chat argument hiding. Default: false (Experimental)")
+        private boolean useChatArgumentPacketLevelHiding = false;
+    }
+
+    @Getter
+    @Configuration
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class VanishSettings {
+        @Comment("Whether to reappear on world change. Bypass permission: abeovanish.bypass.worldchange")
+        private boolean reappearOnWorldChange = false;
+
+        @Comment("Whether to disable pressure plates while vanished")
+        private boolean disablePressurePlates = true;
+
+        @Comment("Whether to disable trampling crops while vanished")
+        private boolean disableCropTrampling = true;
+
+        @Comment("Whether to disable block breaking while vanished. Bypass permission: abeovanish.bypass.blockbreak")
+        private boolean disableBlockBreaking = true;
+
+        @Comment("Whether to disable block placing while vanished. Bypass permission: abeovanish.bypass.blockplace")
+        private boolean disableBlockPlacing = true;
+
+        @Comment("What character to use to bypass chat messages while vanished")
+        private String bypassChatCharacter = "#";
+
+        @Comment("Whether to enable silent chests. You need to have OpenInv installed for this to work.")
+        private boolean silentChests = true;
+
+        @Comment("Settings for other players inventory access while vanished")
+        private OpenInventory openInventory = new OpenInventory();
+
+        @Getter
+        @Configuration
+        @NoArgsConstructor(access = AccessLevel.PRIVATE)
+        public static class OpenInventory {
+            @Comment("Whether to allow players to open other players inventories while vanished. (Requires OpenInv)")
+            private boolean enabled = true;
+            @Comment("Whether to require players to be on spectator mode to open players inventories. (Requires OpenInv)")
+            private boolean requireSpectatorToOpenInv = true;
+        }
     }
 
 }

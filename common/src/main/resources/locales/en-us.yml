@@ -1,6 +1,21 @@
 locales:
-  prefix: "[<gradient:#77DD77:#AFEEEE>AbeoVanish</gradient>]"
-  fake_quit: "%1% has left the game"
-  fake_join: "%1% has joined the game"
-  vanish_on: "You are now vanished"
-  vanish_off: "You are no longer vanished"
+  prefix: "<gradient:#007fff:#f4bbff>ᴀʙᴇᴏᴠᴀɴɪѕʜ</gradient> <color:#6495ed>✧</color>"
+  plugin_reload: "<prefix> <green>AbeoVanish has been reloaded in %1%ms."
+
+  fake_quit: "<yellow>%1% left the game</yellow>"
+  fake_join: "<yellow>%1% joined the game</yellow>"
+  vanish_on: "<prefix> You are now vanished"
+  vanish_off: "<prefix> You are no longer vanished"
+
+  other_vanished_on: "<prefix> <aqua>%1% is now vanished</aqua>"
+  other_vanished_off: "<prefix> <aqua>%1% is no longer vanished</aqua>"
+
+  silent_join: "<prefix> <green>%1% has joined the game silently</green>"
+  silent_leave: "<prefix> <green>%1% has left the game silently</green>"
+
+  currently_vanished: "<color:#00bfff>ʏᴏᴜ ᴀʀᴇ ᴄᴜʀʀᴇɴᴛʟʏ ᴠᴀɴɪѕʜᴇᴅ</color>"
+
+  invalid_vanish_setting: "<prefix> <red>The supplied setting is invalid and can't be set.</red>"
+  vanished_blockbreak: "<prefix> <red>You cannot break blocks while vanished</red>"
+  vanished_blockplace: "<prefix> <red>You cannot place blocks while vanished</red>"
+  vanished_chat_message: "<gray>You can't chat while you are vanished, add <gold><bold>%1%</bold></gold> at the beginning of your message to bypass this."

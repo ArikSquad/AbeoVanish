@@ -1,5 +1,6 @@
 package eu.mikart.abeovanish.user;
 
+import eu.mikart.abeovanish.IAbeo;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
@@ -75,6 +76,15 @@ public interface Player {
      */
     default void sendMessage(@NotNull Component component) {
         getAudience().sendMessage(component);
+    }
+
+    /**
+     * Check if a player is vanished
+     *
+     * @param plugin The plugin to check against
+     */
+    default boolean isVanished(IAbeo plugin) {
+        return plugin.getDatabase().getVanishState(this.getUniqueId());
     }
 
 }

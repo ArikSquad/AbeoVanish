@@ -4,9 +4,11 @@ import eu.mikart.abeovanish.config.ConfigProvider;
 import eu.mikart.abeovanish.database.Database;
 import eu.mikart.abeovanish.database.MySqlDatabase;
 import eu.mikart.abeovanish.database.SqLiteDatabase;
+import eu.mikart.abeovanish.hook.IHook;
 import eu.mikart.abeovanish.user.Player;
 import net.kyori.adventure.audience.Audience;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.logging.Logger;
@@ -16,6 +18,10 @@ public interface IAbeo extends ConfigProvider {
     Logger getLogger();
 
     Database getDatabase();
+
+    IVSM getVanishStateManager();
+
+    String getVersion();
 
     @NotNull
     String getPlatform();
@@ -44,4 +50,7 @@ public interface IAbeo extends ConfigProvider {
     Collection<Player> getOnlinePlayersOnServer(@NotNull Player player);
 
     Collection<eu.mikart.abeovanish.user.Player> getOnlineVanishedPlayers();
+
+    @Nullable
+    IHook getOpenInv();
 }

@@ -1,19 +1,30 @@
-name: abeovanish
+name: AbeoVanish
 version: '1.0-SNAPSHOT'
 main: eu.mikart.abeovanish.AbeoBukkit
 api-version: '1.21'
-authors: [ArikSquad]
+authors: [ ArikSquad ]
 description: Modular vanish-system
+folia-supported: true
 dependencies:
   server:
     CommandAPI:
       load: BEFORE
       required: true
       join-classpath: true
+    packetevents:
+      load: BEFORE
+      required: true
+      join-classpath: true
 permissions:
-  vanish.use:
-    default: true
+  abeovanish.vanish:
+    default: op
     description: Allows the player to use the vanish command
-  vanish.see:
+  abeovanish.see:
     default: op
     description: Allows the player to see vanished players
+  abeovanish.reload:
+    default: op
+    description: Allows the player to reload the plugin
+  abeovanish.about:
+    default: true
+    description: Allows the player to see the plugin information

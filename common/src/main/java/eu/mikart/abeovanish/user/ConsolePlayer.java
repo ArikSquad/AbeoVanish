@@ -74,6 +74,4 @@ public class ConsolePlayer implements Player {
         return username.equalsIgnoreCase(consoleUsername);
     }
 
-
-
 }
