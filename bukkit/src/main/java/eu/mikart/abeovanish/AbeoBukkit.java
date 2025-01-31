@@ -19,6 +19,7 @@ import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.audience.Audience;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,7 @@ public final class AbeoBukkit extends JavaPlugin implements IAbeo {
     private VanishStateManager vanishStateManager;
     private OpenInv openInv;
     private boolean productionEnv; // not used
+    private PaperLogger adventureLogger;
 
     @Override
     public void onLoad() {
@@ -49,6 +51,7 @@ public final class AbeoBukkit extends JavaPlugin implements IAbeo {
     @Override
     public void onEnable() {
         this.loadConfig();
+        this.adventureLogger = new PaperLogger(this);
         this.database = this.loadDatabase();
 
         String buildType = "unknown";
@@ -59,7 +62,7 @@ public final class AbeoBukkit extends JavaPlugin implements IAbeo {
                 buildType = prop.getProperty("build.type", "unknown");
             }
         } catch (Exception e) {
-            getLogger().warning("Could not load build type: " + e.getMessage());
+            getAdventureLogger().warn("Could not load build type: " + e.getMessage());
         }
 
         if ("development".equalsIgnoreCase(buildType)) {
@@ -71,7 +74,7 @@ public final class AbeoBukkit extends JavaPlugin implements IAbeo {
         } else if ("production".equalsIgnoreCase(buildType)) {
             productionEnv = true;
         } else {
-            getLogger().warning("Unknown build type detected. Proceeding with defaults.");
+            getAdventureLogger().warn("Unknown build type detected. Proceeding with defaults.");
         }
 
         this.vanishStateManager = new VanishStateManager(this);
@@ -83,7 +86,7 @@ public final class AbeoBukkit extends JavaPlugin implements IAbeo {
         if (getSettings().getFunctionalitySettings().isUseChatArgumentPacketLevelHiding()) {
             PacketEvents.getAPI().getEventManager().registerListener(
                     new ExperimentalPacketListener(this), PacketListenerPriority.NORMAL);
-            getLogger().info("Using experimental packet level hiding for chat arguments.");
+            getAdventureLogger().info("Using experimental packet level hiding for chat arguments.");
         } else {
             this.getServer().getPluginManager().registerEvents(new TabCompleteListener(this), this);
         }
@@ -98,9 +101,11 @@ public final class AbeoBukkit extends JavaPlugin implements IAbeo {
             this.openInv = (OpenInv) getServer().getPluginManager().getPlugin("OpenInv");
         }
 
-        // I guess there's Folia support... (no idea if it runs on Paper if I do it this way). Also, this is messy
+        checkForOtherVanishPlugins();
         getServer().getAsyncScheduler().runAtFixedRate(this, (task) -> getOnlineVanishedPlayers().forEach(player -> getLocales().getLocale("currently_vanished").ifPresent(((BukkitPlayer) player).getBukkitPlayer()::sendActionBar)), 0, 2, TimeUnit.SECONDS);
         BukkitAbeoVanishAPI.register(this);
+
+        getAdventureLogger().info("AbeoBukkit is now enabled");
     }
 
     @Override
@@ -165,6 +170,27 @@ public final class AbeoBukkit extends JavaPlugin implements IAbeo {
     @Override
     public String getVersion() {
         return getPluginMeta().getVersion();
+    }
+
+    // Not here to be intrusive to the user, and trying to force this being the only vanish plugin in the server, but
+    // preferably it would make the most sense to only include one vanish plugin in a server, so we'll send a warning if
+    // we detect another vanish plugin.
+    private void checkForOtherVanishPlugins() {
+        String name = null;
+        for (Plugin p : getServer().getPluginManager().getPlugins()) {
+            if (p.getName().contains("vanish")) {
+                name = p.getName();
+                break;
+            }
+        }
+
+        if (name != null) {
+            getAdventureLogger().warn("""
+                    Detected another vanish plugin: %s
+                    AbeoVanish is not guaranteed to work properly with other vanish plugins.
+                    Please remove the other vanish plugin to avoid conflicts.
+                    """.formatted(name));
+        }
     }
 
 }

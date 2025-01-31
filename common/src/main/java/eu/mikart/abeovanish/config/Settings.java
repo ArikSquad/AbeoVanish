@@ -42,9 +42,12 @@ public class Settings {
 
     @Comment("Vanish settings")
     private VanishSettings vanishSettings = new VanishSettings();
-    
+
     @Comment("Functionality settings")
     private FunctionalitySettings functionalitySettings = new FunctionalitySettings();
+
+    @Comment("Settings for hooks which this plugin supports")
+    private HookSettings hookSettings = new HookSettings();
 
     @Getter
     @Configuration
@@ -128,19 +131,26 @@ public class Settings {
 
         @Comment("Whether to enable silent chests. You need to have OpenInv installed for this to work.")
         private boolean silentChests = true;
+    }
 
-        @Comment("Settings for other players inventory access while vanished")
-        private OpenInventory openInventory = new OpenInventory();
+
+    @Getter
+    @Configuration
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class HookSettings {
+        @Comment("Settings for other players inventory access while vanished (Requires OpenInv)")
+        private OpenInventory openInv = new OpenInventory();
 
         @Getter
         @Configuration
         @NoArgsConstructor(access = AccessLevel.PRIVATE)
         public static class OpenInventory {
-            @Comment("Whether to allow players to open other players inventories while vanished. (Requires OpenInv)")
+            @Comment("Whether to allow players to open other players inventories while vanished.")
             private boolean enabled = true;
-            @Comment("Whether to require players to be on spectator mode to open players inventories. (Requires OpenInv)")
+            @Comment("Whether to require players to be on spectator mode to open players inventories.")
             private boolean requireSpectatorToOpenInv = true;
+            @Comment("Whether to require players to be sneaking to open players inventories.")
+            private boolean requireSneakingToOpenInv = true;
         }
     }
-
 }

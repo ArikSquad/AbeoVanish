@@ -107,34 +107,45 @@ public class BukkitListener implements Listener {
 
     @EventHandler
     public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
-        if (event.getRightClicked().getType().equals(EntityType.PLAYER)) {
-            if (!plugin.getSettings().getVanishSettings().getOpenInventory().isEnabled()) {
+        // Slight amount of checks
+        if (!event.getRightClicked().getType().equals(EntityType.PLAYER)) {
+            return;
+        }
+
+        if (!plugin.getSettings().getHookSettings().getOpenInv().isEnabled()) {
+            return;
+        }
+
+        if (plugin.getSettings().getHookSettings().getOpenInv().isRequireSpectatorToOpenInv() && event.getPlayer().getGameMode() != GameMode.SPECTATOR) {
+            return;
+        }
+
+        if (plugin.getSettings().getHookSettings().getOpenInv().isRequireSneakingToOpenInv()) {
+            if (!event.getPlayer().isSneaking()) {
                 return;
             }
+        }
 
-            if (plugin.getSettings().getVanishSettings().getOpenInventory().isRequireSpectatorToOpenInv() && event.getPlayer().getGameMode() != GameMode.SPECTATOR) {
-                return;
-            }
+        if (!event.getPlayer().hasPermission("abeovanish.openinv")) {
+            return;
+        }
 
-            if (!event.getPlayer().hasPermission("abeovanish.openinv")) {
-                return;
-            }
+        if (plugin.getOpenInv() == null) {
+            return;
+        }
 
-            if (plugin.getOpenInv() == null) {
-                return;
-            }
+        Player player = BukkitPlayer.adapt(event.getPlayer());
+        if (!player.isVanished(plugin)) {
+            return;
+        }
 
-            Player player = BukkitPlayer.adapt(event.getPlayer());
-            if (player.isVanished(plugin)) {
-                event.setCancelled(true);
-                org.bukkit.entity.Player target = (org.bukkit.entity.Player) event.getRightClicked();
+        event.setCancelled(true);
+        org.bukkit.entity.Player target = (org.bukkit.entity.Player) event.getRightClicked();
 
-                try {
-                    plugin.getOpenInv().openInventory(player, plugin.getOpenInv().getInventory(BukkitPlayer.adapt(target), true));
-                } catch (InstantiationException e) {
-                    plugin.getLogger().warning("Failed to open inventory for " + target.getName());
-                }
-            }
+        try {
+            plugin.getOpenInv().openInventory(player, plugin.getOpenInv().getInventory(BukkitPlayer.adapt(target), true));
+        } catch (InstantiationException e) {
+            plugin.getAdventureLogger().warn("Failed to open inventory for " + target.getName());
         }
     }
 

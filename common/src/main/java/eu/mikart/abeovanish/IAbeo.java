@@ -53,4 +53,11 @@ public interface IAbeo extends ConfigProvider {
 
     @Nullable
     IHook getOpenInv();
+
+    /**
+     * This is an alpha version of the upcoming migration from {@link IAbeo#getLogger()}
+     *
+     * @return instance of AbeoLogger/AdventureLogger
+     */
+    AbeoLogger getAdventureLogger();
 }
