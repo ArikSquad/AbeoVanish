@@ -1,4 +1,4 @@
-package eu.mikart.abeovanish.listener;
+package eu.mikart.abeovanish.listener.packet;
 
 import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
@@ -10,7 +10,7 @@ import eu.mikart.abeovanish.user.Player;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class PacketEventsPacketListener implements PacketListener {
+public class ChatPacketListener implements PacketListener {
     private final IAbeo plugin;
 
     @Override
@@ -26,19 +26,6 @@ public class PacketEventsPacketListener implements PacketListener {
                     plugin.getLocales().getLocale("vanished_chat_message", plugin.getSettings().getVanishSettings().getBypassChatCharacter()).ifPresent(player::sendMessage);
                 }
             }
-        } else if (event.getPacketType() == PacketType.Play.Client.PLAYER_BLOCK_PLACEMENT) {
-            Player player = BukkitPlayer.adapt(user);
-            if (!player.isVanished(plugin)) {
-                return;
-            }
-
-            if (plugin.getSettings().getVanishSettings().isDisableBlockPlacing()) {
-                if (!user.hasPermission("abeovanish.bypass.blockplace")) {
-                    event.setCancelled(true);
-                    plugin.getLocales().getLocale("vanished_blockplace").ifPresent(player::sendMessage);
-                }
-            }
         }
     }
-
 }

@@ -197,6 +197,7 @@ public class BukkitListener implements Listener {
     //  just that I have no idea which packet is the most effective to be listened to.
     @EventHandler(priority = EventPriority.HIGH)
     public void onBreak(BlockBreakEvent event) {
+        if (plugin.getSettings().getExperimental().isUseBlockBreakPacket()) return;
         Player player = BukkitPlayer.adapt(event.getPlayer());
         if (!player.isVanished(plugin)) {
             return;

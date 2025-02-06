@@ -11,9 +11,10 @@ import eu.mikart.abeovanish.config.Settings;
 import eu.mikart.abeovanish.database.Database;
 import eu.mikart.abeovanish.hook.OpenInv;
 import eu.mikart.abeovanish.listener.BukkitListener;
-import eu.mikart.abeovanish.listener.ExperimentalPacketListener;
-import eu.mikart.abeovanish.listener.PacketEventsPacketListener;
+import eu.mikart.abeovanish.listener.packet.ChatArgumentPacketListener;
+import eu.mikart.abeovanish.listener.packet.ChatPacketListener;
 import eu.mikart.abeovanish.listener.TabCompleteListener;
+import eu.mikart.abeovanish.listener.packet.WorldPacketListener;
 import eu.mikart.abeovanish.user.BukkitPlayer;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
@@ -81,15 +82,16 @@ public final class AbeoBukkit extends JavaPlugin implements IAbeo {
         this.getServer().getPluginManager().registerEvents(new BukkitListener(this), this);
 
         PacketEvents.getAPI().getEventManager().registerListener(
-                new PacketEventsPacketListener(this), PacketListenerPriority.NORMAL);
+                new ChatPacketListener(this), PacketListenerPriority.NORMAL);
 
-        if (getSettings().getFunctionalitySettings().isUseChatArgumentPacketLevelHiding()) {
+        if (getSettings().getExperimental().isUseChatArgumentPacketLevelHiding()) {
             PacketEvents.getAPI().getEventManager().registerListener(
-                    new ExperimentalPacketListener(this), PacketListenerPriority.NORMAL);
+                    new ChatArgumentPacketListener(this), PacketListenerPriority.NORMAL);
             getAdventureLogger().info("Using experimental packet level hiding for chat arguments.");
         } else {
             this.getServer().getPluginManager().registerEvents(new TabCompleteListener(this), this);
         }
+        PacketEvents.getAPI().getEventManager().registerListener(new WorldPacketListener(this), PacketListenerPriority.NORMAL);
 
         PacketEvents.getAPI().init();
         //CommandAPI.onEnable();

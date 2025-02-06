@@ -1,4 +1,4 @@
-package eu.mikart.abeovanish.listener;
+package eu.mikart.abeovanish.listener.packet;
 
 import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 @AllArgsConstructor
-public class ExperimentalPacketListener implements PacketListener {
+public class ChatArgumentPacketListener implements PacketListener {
 
     private final IAbeo plugin;
 

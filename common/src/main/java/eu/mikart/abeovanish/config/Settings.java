@@ -43,8 +43,8 @@ public class Settings {
     @Comment("Vanish settings")
     private VanishSettings vanishSettings = new VanishSettings();
 
-    @Comment("Functionality settings")
-    private FunctionalitySettings functionalitySettings = new FunctionalitySettings();
+    @Comment("Experimental/Function settings (These do work, but may not be fully tested)")
+    private ExperimentalSettings experimental = new ExperimentalSettings();
 
     @Comment("Settings for hooks which this plugin supports")
     private HookSettings hookSettings = new HookSettings();
@@ -102,9 +102,11 @@ public class Settings {
     @Getter
     @Configuration
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class FunctionalitySettings {
+    public static class ExperimentalSettings {
         @Comment("Whether to prefer the use of packets for chat argument hiding. Default: false (Experimental)")
         private boolean useChatArgumentPacketLevelHiding = false;
+        @Comment("Whether to use the experimental packet disabling for block breaking. Default: false")
+        private boolean useBlockBreakPacket = false;
     }
 
     @Getter

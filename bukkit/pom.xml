@@ -5,15 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>eu.mikart</groupId>
+        <groupId>eu.mikart.abeovanish</groupId>
         <artifactId>abeovanish</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </parent>
 
-    <groupId>eu.mikart.abeovanish</groupId>
     <artifactId>abeovanish-paper</artifactId>
-    <version>0.0.1</version>
-
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -114,14 +112,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.jikoo.OpenInv</groupId>
+            <groupId>com.github.Jikoo.OpenInv</groupId>
             <artifactId>openinvapi</artifactId>
             <version>5.1.3</version>
         </dependency>
         <dependency>
             <groupId>eu.mikart.abeovanish</groupId>
             <artifactId>abeovanish-common</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </dependency>
     </dependencies>
 </project>
